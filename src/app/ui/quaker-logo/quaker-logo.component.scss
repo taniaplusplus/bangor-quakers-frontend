@@ -1,0 +1,12 @@
+.qu_q{
+  width:150px;
+  padding:30px;
+}
+
+.animated{
+  transition: transform 600ms ease-in-out;
+}
+
+.qu_q.en{
+  transform: rotate(45deg);
+}

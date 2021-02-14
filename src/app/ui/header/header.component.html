@@ -1,0 +1,17 @@
+<div class="header-main">
+
+  <div class="logo">
+    <rsf-quaker-logo></rsf-quaker-logo>
+  </div>
+
+  <div class="languages">
+    <div class="language" (click)="l.setLanguage('en')">
+      <img src="assets/en-flag.png">
+      <p>{{l.get('english')}}</p>
+    </div>
+    <div (click)="l.setLanguage('cy')" class="language">
+      <img src="assets/cy-flag.png">
+      <p>{{l.get('welsh')}}</p>
+    </div>
+  </div>
+</div>

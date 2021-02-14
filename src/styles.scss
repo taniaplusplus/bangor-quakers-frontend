@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root{
+  --linkBlue: #0000ee;
+  --font-main: arial, sans-serif;
+
+  font-family: var(--font-main);
+}
+
+a {
+  color: var(--linkBlue);
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  &:before {
+    background-color: var(--linkBlue);
+    content: '';
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+    width: 100%;
+  }
+  &:hover {
+    &:before {
+      width: 0;
+    }
+  }
+}

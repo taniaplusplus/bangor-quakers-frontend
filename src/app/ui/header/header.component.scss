@@ -1,0 +1,28 @@
+.languages {
+  float: right;
+  margin-right: 50px;
+  display: inline;
+}
+
+.logo{
+  display: inline;
+}
+
+.language {
+  line-height: 40px;
+
+  img {
+    height: 40px;
+  }
+
+  p {
+    vertical-align: top;
+    margin-left: 20px;
+    display: inline;
+  }
+}
+
+.header-main{
+  width:100%;
+  background-color: #ddd;;
+}
