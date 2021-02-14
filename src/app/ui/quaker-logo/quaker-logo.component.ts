@@ -8,13 +8,65 @@ import { LanguageService } from '../../services/language.service';
   encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class QuakerLogoComponent implements OnInit {
+  /**
+   * Whether the page load timeout has occurred
+   * Animations are blocked for a bit to prevent animations playing right
+   * on page load
+   */
   animated = false;
 
-  constructor(public l: LanguageService) {}
+  /**
+   * Whether the QUAKERS text is animating currently
+   */
+  animatedText = false;
+
+  /**
+   * The current display language, cached because of animations
+   */
+  language: string;
+
+  constructor(public l: LanguageService) {
+    this.language = l.getLanguage();
+  }
 
   ngOnInit(): void {
+    // Allow animations after 100ms
     setTimeout(() => {
       this.animated = true;
     }, 100);
+
+    // When a language change happens, play the animation
+    this.l.getLanguageObservable().subscribe((language) => {
+      this.onNewLanguage(language);
+    });
+  }
+
+  /**
+   * On language change, play the animation
+   * @param language the language
+   * @private
+   */
+  private onNewLanguage(language: string): void {
+    // If an animation is currently playing, wait 1100ms and call this function again
+    if (this.animatedText) {
+      setTimeout(() => {
+        this.onNewLanguage(language);
+      }, 1100);
+
+      // otherwise, if the language changed and the animations are enabled, play the animation
+    } else if (this.animated && this.language !== language) {
+      // start the text animation fadeout
+      this.animatedText = true;
+
+      // once the text has faded out, rotate the Q
+      setTimeout(() => {
+        this.language = language;
+      }, 200);
+
+      // disable the text animation after 1000ms
+      setTimeout(() => {
+        this.animatedText = false;
+      }, 1000);
+    }
   }
 }

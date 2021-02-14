@@ -1,11 +1,24 @@
 .languages {
   float: right;
   margin-right: 50px;
-  display: inline;
+  display: inline-block;
+  margin-top:30px;
 }
 
 .logo{
-  display: inline;
+  display: inline-block;
+}
+
+.headertext{
+  h2{
+    font-size: 18px;
+    font-weight: normal;
+  }
+  display: inline-block;
+
+}
+
+.navbar{
 }
 
 .language {
@@ -16,13 +29,16 @@
   }
 
   p {
-    vertical-align: top;
     margin-left: 20px;
-    display: inline;
+    line-height: 37px;
+    vertical-align: bottom;
+    display: inline-block;
+    width:65px;
   }
 }
 
 .header-main{
   width:100%;
-  background-color: #ddd;;
+  background-color:#eee;
+
 }

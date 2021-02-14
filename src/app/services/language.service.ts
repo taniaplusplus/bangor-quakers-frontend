@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SessionService } from './session.service';
 
 /**
  * Language service - provides built in strings for UI
@@ -8,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class LanguageService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private session: SessionService) {
     this.languages = { en: {}, cy: {} };
     // load english
     this.load('en')
@@ -27,9 +29,10 @@ export class LanguageService {
       .catch((e) => {
         console.warn(e);
       });
+    this.currentLanguage.next(this.session.getLanguage());
   }
 
-  private currentLanguage = 'en';
+  private currentLanguage = new BehaviorSubject<string>('en');
   private languages: { [en: string]: any; cy: any };
   /**
    * Loads a single lanugage and returns the result
@@ -78,7 +81,7 @@ export class LanguageService {
    * @return the requested string
    */
   get(id: string): string {
-    return this.getOne(this.languages[this.currentLanguage], id);
+    return this.getOne(this.languages[this.currentLanguage.getValue()], id);
   }
 
   /**
@@ -86,13 +89,30 @@ export class LanguageService {
    * @param language the language to set to
    */
   setLanguage(language: string): void {
-    this.currentLanguage = language;
+    this.currentLanguage.next(language);
+    this.session.setLanguage(language);
   }
 
   /**
    * Returns the current language
    */
   getLanguage(): string {
-    return this.currentLanguage;
+    return this.currentLanguage.getValue();
+  }
+
+  /**
+   * Gets the current language as an observable for events that trigger on change
+   */
+  getLanguageObservable(): Observable<string> {
+    return this.currentLanguage.asObservable();
+  }
+
+  /**
+   * Gets a string from a particular language
+   * @param id the ID of the string
+   * @param language the language ID
+   */
+  getStringFromLanguage(id: string, language: string): string {
+    return this.getOne(this.languages[language], id);
   }
 }
