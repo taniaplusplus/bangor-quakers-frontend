@@ -8,9 +8,10 @@ import { LanguageService } from './services/language.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { QuakerLogoComponent } from './ui/quaker-logo/quaker-logo.component';
 import { HeaderComponent } from './ui/header/header.component';
+import { NavbarComponent } from './ui/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HomeComponent, QuakerLogoComponent, HeaderComponent],
+  declarations: [AppComponent, HomeComponent, HomeComponent, QuakerLogoComponent, HeaderComponent, NavbarComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [LanguageService],
   bootstrap: [AppComponent],

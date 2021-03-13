@@ -26,17 +26,18 @@
 .qu_text{
   font-weight: bold;
   position: relative;
-  top: -143.5px;
+  top: -122.5px;
   left: 106px;
   font-size: 22px;
   text-transform: uppercase;
   overflow: hidden;
   font-family: arial, sans-serif;
+  display: inline-block;
 }
 
 .qu_text.en{
-  top: -58.5px;
-  left: 69px;
+  top: -80.5px;
+  left: 90px;
   transform: rotate(
       45deg
   );

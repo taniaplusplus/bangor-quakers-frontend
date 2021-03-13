@@ -8,12 +8,11 @@
 
 .logo{
   display: inline-block;
-  height:200px;
 }
 
 .headertext{
   h2{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
   }
   display: inline-block;
@@ -43,10 +42,10 @@
   }
 }
 
+
 .header-main{
   width:100%;
   background-color: white;
-  border-bottom: 4px solid var(--col-berry);
   display: flex;
 }
 
