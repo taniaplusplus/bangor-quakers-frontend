@@ -8,20 +8,20 @@
     <h1>{{l.get('title')}}</h1>
     <h2>{{l.get('subtext')}}</h2>
     <div class="navbar">
-hello
     </div>
   </div>
 
 
-
   <div class="languages">
-    <div class="language" (click)="l.setLanguage('en')">
-      <img src="assets/en-flag.png">
-      <p>{{l.get('english')}}</p>
-    </div>
-    <div (click)="l.setLanguage('cy')" class="language">
-      <img src="assets/cy-flag.png">
-      <p>{{l.get('welsh')}}</p>
+    <div class="languages-cont">
+      <div class="language hvr-backward" (click)="l.setLanguage('en')">
+        <img src="assets/en-flag.png">
+        <p>{{l.get('english')}}</p>
+      </div>
+      <div (click)="l.setLanguage('cy')" class="language hvr-backward">
+        <img src="assets/cy-flag.png">
+        <p>{{l.get('welsh')}}</p>
+      </div>
     </div>
   </div>
 </div>

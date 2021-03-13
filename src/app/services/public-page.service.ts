@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PublicPageService {
+  constructor() {}
+}
 
-  constructor() { }
+export class Page {
+  title: string;
+  path: string;
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'rsf-quaker-logo',
@@ -7,7 +8,7 @@ import { LanguageService } from '../../services/language.service';
   styleUrls: ['./quaker-logo.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class QuakerLogoComponent implements OnInit {
+export class QuakerLogoComponent implements OnInit, OnDestroy {
   /**
    * Whether the page load timeout has occurred
    * Animations are blocked for a bit to prevent animations playing right
@@ -25,6 +26,10 @@ export class QuakerLogoComponent implements OnInit {
    */
   language: string;
 
+  private languageSub: Subscription | undefined;
+
+  private intervalCheckSub: Subscription | undefined;
+
   constructor(public l: LanguageService) {
     this.language = l.getLanguage();
   }
@@ -36,22 +41,32 @@ export class QuakerLogoComponent implements OnInit {
     }, 100);
 
     // When a language change happens, play the animation
-    this.l.getLanguageObservable().subscribe((language) => {
+    this.languageSub = this.l.getLanguageObservable().subscribe((language) => {
       this.onNewLanguage(language);
+    });
+
+    this.intervalCheckSub = interval(10000).subscribe(() => {
+      if (!this.animatedText && this.language !== this.l.getLanguage()) {
+        this.language = this.l.getLanguage();
+      }
     });
   }
 
+  ngOnDestroy(): void {
+    this.languageSub?.unsubscribe();
+    this.intervalCheckSub?.unsubscribe();
+  }
   /**
    * On language change, play the animation
    * @param language the language
    * @private
    */
   private onNewLanguage(language: string): void {
-    // If an animation is currently playing, wait 1100ms and call this function again
+    // If an animation is currently playing, wait 1500ms and call this function again
     if (this.animatedText) {
       setTimeout(() => {
         this.onNewLanguage(language);
-      }, 1100);
+      }, 1500);
 
       // otherwise, if the language changed and the animations are enabled, play the animation
     } else if (this.animated && this.language !== language) {

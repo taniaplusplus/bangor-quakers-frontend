@@ -2,11 +2,13 @@
   float: right;
   margin-right: 50px;
   display: inline-block;
-  margin-top:30px;
+  margin-top:42px;
+  flex-grow: 1;
 }
 
 .logo{
   display: inline-block;
+  height:200px;
 }
 
 .headertext{
@@ -15,10 +17,14 @@
     font-weight: normal;
   }
   display: inline-block;
-
+  margin-top:45px;
 }
 
 .navbar{
+}
+
+.languages-cont{
+  float: right;
 }
 
 .language {
@@ -39,6 +45,24 @@
 
 .header-main{
   width:100%;
-  background-color:#eee;
+  background-color: white;
+  border-bottom: 4px solid var(--col-berry);
+  display: flex;
+}
 
+@media only screen and (max-width: 999px){
+  .header-main{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headertext{
+    text-align: center;
+    margin:8px;
+    width:90%;
+  }
+
+  .languages{
+    margin:0;
+  }
 }

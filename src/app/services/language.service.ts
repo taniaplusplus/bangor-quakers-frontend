@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionService } from './session.service';
+import { Title } from '@angular/platform-browser';
 
 /**
  * Language service - provides built in strings for UI
@@ -10,7 +11,11 @@ import { SessionService } from './session.service';
   providedIn: 'root',
 })
 export class LanguageService {
-  constructor(private http: HttpClient, private session: SessionService) {
+  constructor(
+    private http: HttpClient,
+    private session: SessionService,
+    private title: Title
+  ) {
     this.languages = { en: {}, cy: {} };
     // load english
     this.load('en')
@@ -25,15 +30,27 @@ export class LanguageService {
     this.load('cy')
       .then((r) => {
         this.languages.cy = r;
+        this.setTitle();
       })
       .catch((e) => {
         console.warn(e);
       });
+
     this.currentLanguage.next(this.session.getLanguage());
   }
 
   private currentLanguage = new BehaviorSubject<string>('en');
   private languages: { [en: string]: any; cy: any };
+
+  /**
+   * Sets the page title
+   * @private
+   */
+  private setTitle(): void {
+    this.currentLanguage.asObservable().subscribe((r) => {
+      this.title.setTitle(this.getStringFromLanguage('title', r));
+    });
+  }
   /**
    * Loads a single lanugage and returns the result
    * @param language the language to load
